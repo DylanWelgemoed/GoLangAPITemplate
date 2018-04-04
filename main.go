@@ -15,5 +15,5 @@ func main() {
 
 	router := NewRouter()
 
-	log.Fatal(http.ListenAndServe(port, router))
+	log.Fatal(http.ListenAndServe(":" + port, router))
 }
