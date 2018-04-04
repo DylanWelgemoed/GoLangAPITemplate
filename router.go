@@ -2,14 +2,14 @@ package main
 
 import (
 	"net/http"
-	"./structs"
+	"github.com/DylanWelgemoed/GoLangAPITemplate/structs"
 
     "github.com/gorilla/mux"
 )
 
 func NewRouter() *mux.Router {
     router := mux.NewRouter().StrictSlash(true)
-    for _, route := range structs.routes {
+    for _, route := range structs.RouteList {
         var handler http.Handler
         handler = route.HandlerFunc
         handler = Logger(handler, route.Name)

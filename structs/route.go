@@ -2,7 +2,7 @@ package structs
 
 import (
     "net/http"
-    "../handlers"
+    "github.com/DylanWelgemoed/GoLangAPITemplate/handlers"
 )
 
 type Route struct {
@@ -14,11 +14,11 @@ type Route struct {
 
 type Routes []Route
 
-var routes = Routes{
+var RouteList = Routes{
     Route{
         "Index",
         "GET",
         "/",
         handlers.Index,
-    }
+    },
 }

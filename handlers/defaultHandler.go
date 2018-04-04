@@ -2,8 +2,6 @@ package handlers
 
 import (
 	"fmt"
-	"html"
-	"log"
 	"net/http"
 )
 

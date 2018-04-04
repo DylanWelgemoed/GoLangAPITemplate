@@ -1,10 +1,9 @@
 package main
 
 import (
-	"fmt"
-	"html"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {	
@@ -16,5 +15,5 @@ func main() {
 
 	router := NewRouter()
 
-	log.Fatal(http.ListenAndServe(port, router))
+	log.Fatal(http.ListenAndServe(":8080", router))
 }
