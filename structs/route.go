@@ -21,4 +21,10 @@ var RouteList = Routes{
         "/",
         handlers.Index,
     },
+    Route{
+        "GetUsers",
+        "GET",
+        "/users/",
+        handlers.GetUsers,
+    },
 }
