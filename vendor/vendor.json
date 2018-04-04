@@ -20,6 +20,6 @@
 		"install": [
 			"./..."
 		],
-		"goVersion": "go1.10.1"
+		"goVersion": "go1.9.4"
 	}
 }
