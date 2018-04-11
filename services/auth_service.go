@@ -5,9 +5,10 @@ import (
 	"net/http"
 	"github.com/DylanWelgemoed/GoLangAPITemplate/api/parameters"
 	"github.com/DylanWelgemoed/GoLangAPITemplate/core/authentication"
-	"github.com/DylanWelgemoed/GoLangAPITemplate/services/models"
+	"github.com/DylanWelgemoed/GoLangAPITemplate/models"
 
 	jwt "github.com/dgrijalva/jwt-go"
+	request "github.com/dgrijalva/jwt-go/request"
 )
 
 func Login(requestUser *models.UserLogin) (int, []byte) {
@@ -46,7 +47,7 @@ func RefreshToken(requestUser *models.UserLogin) []byte {
 
 func Logout(req *http.Request) error {
 	authBackend := authentication.InitJWTAuthenticationBackend()
-	tokenRequest, err := jwt.ParseFromRequest(req, func(token *jwt.Token) (interface{}, error) {
+	tokenRequest, err := request.ParseFromRequest(req, request.OAuth2Extractor, func(token *jwt.Token) (interface{}, error) {
 		return authBackend.PublicKey, nil
 	})
 	 

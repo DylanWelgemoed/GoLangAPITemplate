@@ -1,11 +1,11 @@
 package authentication
 
 import (
-    "api.jwt.auth/core/redis"
-    "api.jwt.auth/services/models"
-    "api.jwt.auth/settings"
+    "github.com/DylanWelgemoed/GoLangAPITemplate/core/redis"
+    "github.com/DylanWelgemoed/GoLangAPITemplate/models"
+    "github.com/DylanWelgemoed/GoLangAPITemplate/settings"
     "bufio"
-    "code.google.com/p/go-uuid/uuid"
+    "github.com/google/uuid"
     "crypto/rsa"
     "crypto/x509"
     "encoding/pem"
@@ -40,9 +40,14 @@ func InitJWTAuthenticationBackend() *JWTAuthenticationBackend {
 
 func (backend *JWTAuthenticationBackend) GenerateToken(userUUID string) (string, error) {
     token := jwt.New(jwt.SigningMethodRS512)
-    token.Claims["exp"] = time.Now().Add(time.Hour * time.Duration(settings.Get().JWTExpirationDelta)).Unix()
-    token.Claims["iat"] = time.Now().Unix()
-    token.Claims["sub"] = userUUID
+    claims := make(jwt.MapClaims)
+
+    claims["exp"] = time.Now().Add(time.Hour * time.Duration(settings.Get().JWTExpirationDelta)).Unix()
+    claims["iat"] = time.Now().Unix()
+    claims["sub"] = userUUID
+
+    token.Claims = claims
+
     tokenString, err := token.SignedString(backend.privateKey)
     if err != nil {
         panic(err)
@@ -51,16 +56,16 @@ func (backend *JWTAuthenticationBackend) GenerateToken(userUUID string) (string,
     return tokenString, nil
 }
 
-func (backend *JWTAuthenticationBackend) Authenticate(user *models.User) bool {
+func (backend *JWTAuthenticationBackend) Authenticate(userLogin *models.UserLogin) bool {
     hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("testing"), 10)
     
-    testUser := models.User{
-        UUID:     uuid.New(),
+    testUser := models.UserLogin{
+        UUID:     uuid.New().String(),
         Username: "haku",
         Password: string(hashedPassword),
     }
     
-    return user.Username == testUser.Username && bcrypt.CompareHashAndPassword([]byte(testUser.Password), []byte(user.Password)) == nil
+    return userLogin.Username == testUser.Username && bcrypt.CompareHashAndPassword([]byte(testUser.Password), []byte(userLogin.Password)) == nil
 }
 
 func (backend *JWTAuthenticationBackend) getTokenRemainingValidity(timestamp interface{}) int {
@@ -76,7 +81,8 @@ func (backend *JWTAuthenticationBackend) getTokenRemainingValidity(timestamp int
 
 func (backend *JWTAuthenticationBackend) Logout(tokenString string, token *jwt.Token) error {
     redisConn := redis.Connect()
-    return redisConn.SetValue(tokenString, tokenString, backend.getTokenRemainingValidity(token.Claims["exp"]))
+    claims := token.Claims.(jwt.MapClaims)
+    return redisConn.SetValue(tokenString, tokenString, backend.getTokenRemainingValidity(claims["exp"]))
 }
 
 func (backend *JWTAuthenticationBackend) IsInBlacklist(token string) bool {

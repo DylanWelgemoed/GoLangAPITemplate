@@ -7,7 +7,7 @@ import (
 	"io"
 	"io/ioutil"
     "github.com/gorilla/mux"
-	"github.com/DylanWelgemoed/GoLangAPITemplate/structs"
+	"github.com/DylanWelgemoed/GoLangAPITemplate/models"
 	"github.com/DylanWelgemoed/GoLangAPITemplate/services"
 )
 
@@ -44,7 +44,7 @@ func FindUser(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
 	w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusNotFound)
 
-	if err := json.NewEncoder(w).Encode(structs.JsonErr{Code: http.StatusNotFound, Text: "Not Found"}); err != nil {
+	if err := json.NewEncoder(w).Encode(models.JsonError{Code: http.StatusNotFound, Text: "Not Found"}); err != nil {
 		panic(err)
 	}
 }
@@ -54,7 +54,7 @@ Test with this curl command:
 curl -H "Content-Type: application/json" -d '{"name":"New User", "email":"newuser@test.com"}' http://localhost:5000/users
 */
 func CreateUser(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
-	var user structs.User
+	var user models.User
 	body, err := ioutil.ReadAll(io.LimitReader(r.Body, 1048576))
 
 	if err != nil {

@@ -1,6 +1,6 @@
-package structs
+package models
 
-type JsonErr struct {
+type JsonError struct {
 	Code int    `json:"code"`
 	Text string `json:"text"`
 }

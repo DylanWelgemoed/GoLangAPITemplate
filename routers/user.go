@@ -1,14 +1,13 @@
 package routers
 
 import (
-    "net/http"
     "github.com/DylanWelgemoed/GoLangAPITemplate/controllers"
     "github.com/DylanWelgemoed/GoLangAPITemplate/core/authentication"
     "github.com/codegangsta/negroni"
     "github.com/gorilla/mux"
 )
 
-func SetHelloRoutes(router *mux.Router) *mux.Router {
+func SetUserRoutes(router *mux.Router) *mux.Router {
     router.Handle(
         "/users/",
         negroni.New(
