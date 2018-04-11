@@ -3,7 +3,9 @@ package main
 import (
 	"log"
 	"net/http"
-	"os"
+	"os"	
+	"github.com/codegangsta/negroni" 
+	"github.com/DylanWelgemoed/GoLangAPITemplate/routers"
 )
 
 func main() {	
@@ -13,7 +15,11 @@ func main() {
 		log.Fatal("$PORT must be set")
 	}
 
-	router := NewRouter()
+	// Setup for Router, Endpoints, Handlers and middleware
+	router := routers.InitRoutes()
+	middleWare := negroni.Classic()
+	middleWare.UseHandler(router)
 
-	log.Fatal(http.ListenAndServe(":" + port, router))
+	// Serves API - Creates a new thread and if fails it will log the error.
+	log.Fatal(http.ListenAndServe(":" + port, middleWare))
 }
