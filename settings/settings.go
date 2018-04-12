@@ -5,12 +5,13 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"log"
 )
 
 var environments = map[string]string{
 	"production":    "settings/prod.json",
 	"preproduction": "settings/pre.json",
-	"tests":         "../../settings/tests.json",
+	"tests":         "settings/tests.json",
 }
 
 type Settings struct {
@@ -19,11 +20,13 @@ type Settings struct {
 	JWTExpirationDelta int
 }
 
+var isSettingsSet bool = false
 var settings Settings = Settings{}
 var env = "preproduction"
 
 func Init() {
 	env = os.Getenv("GO_ENV")
+
 	if env == "" {
 		fmt.Println("Warning: Setting preproduction environment due to lack of GO_ENV value")
 		env = "preproduction"
@@ -37,6 +40,7 @@ func LoadSettingsByEnv(env string) {
 		fmt.Println("Error while reading config file", err)
 	}
 	settings = Settings{}
+	isSettingsSet = true
 	jsonErr := json.Unmarshal(content, &settings)
 	if jsonErr != nil {
 		fmt.Println("Error while parsing config file", jsonErr)
@@ -48,7 +52,8 @@ func GetEnvironment() string {
 }
 
 func Get() Settings {
-	if &settings == nil {
+	if isSettingsSet == false {
+		log.Printf("Settings initializing...");
 		Init()
 	}
 	return settings

@@ -8,8 +8,15 @@ import (
 )
 
 func SetUserRoutes(router *mux.Router) *mux.Router {
+    
     router.Handle(
-        "/users/",
+        "/test/users", 
+        negroni.New(
+            negroni.HandlerFunc(controllers.GetTestUsers),
+		)).Methods("GET")
+    
+    router.Handle(
+        "/users",
         negroni.New(
             negroni.HandlerFunc(authentication.RequireTokenAuthentication),
             negroni.HandlerFunc(controllers.GetUsers),

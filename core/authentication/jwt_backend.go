@@ -13,6 +13,7 @@ import (
     "golang.org/x/crypto/bcrypt"
     "os"
     "time"
+    "log"
 )
 
 type JWTAuthenticationBackend struct {
@@ -28,13 +29,16 @@ const (
 var authBackendInstance *JWTAuthenticationBackend = nil
 
 func InitJWTAuthenticationBackend() *JWTAuthenticationBackend {
+    
     if authBackendInstance == nil {
+        log.Printf("AuthBackend intializing....")
+
         authBackendInstance = &JWTAuthenticationBackend{
             privateKey: getPrivateKey(),
             PublicKey:  getPublicKey(),
         }
     }
-    
+
     return authBackendInstance
 }
 
@@ -44,7 +48,8 @@ func (backend *JWTAuthenticationBackend) GenerateToken(userUUID string) (string,
 
     claims["exp"] = time.Now().Add(time.Hour * time.Duration(settings.Get().JWTExpirationDelta)).Unix()
     claims["iat"] = time.Now().Unix()
-    claims["sub"] = userUUID
+    claims["sub"] = "5"
+    claims["name"] = "dylan"
 
     token.Claims = claims
 
@@ -118,7 +123,7 @@ func getPrivateKey() *rsa.PrivateKey {
     if err != nil {
         panic(err)
     }
-    
+
     return privateKeyImported
 }
 

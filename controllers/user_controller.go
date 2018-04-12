@@ -11,6 +11,15 @@ import (
 	"github.com/DylanWelgemoed/GoLangAPITemplate/services"
 )
 
+func GetTestUsers(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
+    w.Header().Set("Content-Type", "application/json; charset=UTF-8")
+	w.WriteHeader(http.StatusOK)
+	
+    if err := json.NewEncoder(w).Encode(services.GetUsers()); err != nil {
+        panic(err)
+    }
+}
+
 func GetUsers(w http.ResponseWriter, r *http.Request, next http.HandlerFunc) {
     w.Header().Set("Content-Type", "application/json; charset=UTF-8")
 	w.WriteHeader(http.StatusOK)
