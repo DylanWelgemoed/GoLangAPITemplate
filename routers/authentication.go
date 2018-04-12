@@ -3,7 +3,7 @@ package routers
 import (
     "github.com/DylanWelgemoed/GoLangAPITemplate/controllers"
     "github.com/DylanWelgemoed/GoLangAPITemplate/core/authentication"
-    "github.com/codegangsta/negroni"
+    negroni "github.com/codegangsta/negroni"
     "github.com/gorilla/mux"
 )
 

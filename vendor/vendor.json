@@ -1,7 +1,49 @@
 {
 	"comment": "",
+	"heroku": {
+		"goVersion": "go1.9.4",
+		"install": [
+			"./..."
+		]
+	},
 	"ignore": "test",
 	"package": [
+		{
+			"checksumSHA1": "TyCPFVKUH57Fu2aLnuahZMC9fUs=",
+			"path": "github.com/codegangsta/negroni",
+			"revision": "22c5532ea862c34fdad414e90f8cc00b4f6f4cab",
+			"revisionTime": "2018-01-30T04:45:49Z"
+		},
+		{
+			"checksumSHA1": "S5uhI0PqtVwGWetaS82w62R8sZA=",
+			"path": "github.com/dgrijalva/jwt-go",
+			"revision": "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e",
+			"revisionTime": "2018-03-08T23:13:08Z"
+		},
+		{
+			"checksumSHA1": "a/3TYNUV2NoU0EfUmJfd5+r/CLk=",
+			"path": "github.com/dgrijalva/jwt-go/request",
+			"revision": "06ea1031745cb8b3dab3f6a236daf2b0aa468b7e",
+			"revisionTime": "2018-03-08T23:13:08Z"
+		},
+		{
+			"checksumSHA1": "6X3O3mfvOyiwV2iAb5GjxARs08c=",
+			"path": "github.com/garyburd/redigo/internal",
+			"revision": "569eae59ada904ea8db7a225c2b47165af08735a",
+			"revisionTime": "2018-04-04T16:07:26Z"
+		},
+		{
+			"checksumSHA1": "TRsWhl8gX4p8xoErljH/oyNmY5M=",
+			"path": "github.com/garyburd/redigo/redis",
+			"revision": "569eae59ada904ea8db7a225c2b47165af08735a",
+			"revisionTime": "2018-04-04T16:07:26Z"
+		},
+		{
+			"checksumSHA1": "Vv2xzrpgM+kLyw/XhdO/1p/i5cU=",
+			"path": "github.com/google/uuid",
+			"revision": "dec09d789f3dba190787f8b4454c7d3c936fed9e",
+			"revisionTime": "2017-11-29T19:10:14Z"
+		},
 		{
 			"checksumSHA1": "IkPM2QLv9urri7S49wzroQx9oXA=",
 			"path": "github.com/gorilla/context",
@@ -13,13 +55,19 @@
 			"path": "github.com/gorilla/mux",
 			"revision": "94231ffd98496cbcb1c15b7bf2a9edfd5f852cd4",
 			"revisionTime": "2018-04-03T18:23:30Z"
+		},
+		{
+			"checksumSHA1": "oCH3J96RWvO8W4xjix47PModpio=",
+			"path": "golang.org/x/crypto/bcrypt",
+			"revision": "d6449816ce06963d9d136eee5a56fca5b0616e7e",
+			"revisionTime": "2018-04-11T15:42:50Z"
+		},
+		{
+			"checksumSHA1": "oVPHWesOmZ02vLq2fglGvf+AMgk=",
+			"path": "golang.org/x/crypto/blowfish",
+			"revision": "d6449816ce06963d9d136eee5a56fca5b0616e7e",
+			"revisionTime": "2018-04-11T15:42:50Z"
 		}
 	],
-	"rootPath": "github.com/DylanWelgemoed/GoLangAPITemplate",
-	"heroku": {
-		"install": [
-			"./..."
-		],
-		"goVersion": "go1.9.4"
-	}
+	"rootPath": "github.com/DylanWelgemoed/GoLangAPITemplate"
 }
